@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f4ed">
+  <meta name="description" content="A quiet, private Pomodoro timer. Focus, take a break, repeat.">
+  <title>Pomodoro — one thing at a time</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <main class="workspace">
+    <header class="masthead"><a class="wordmark" href="./" aria-label="Pomodoro home"><span class="tomato-mark" aria-hidden="true"></span>pomodoro<span class="wordmark-dot">.</span></a><span class="masthead-note">ONE THING AT A TIME</span></header>
+    <div class="app-layout">
+      <section class="timer-panel" aria-label="Pomodoro timer">
+        <div class="mode-controls" role="group" aria-label="Timer mode">
+          <button id="mode-focus" type="button" aria-pressed="true">Focus</button>
+          <button id="mode-short" type="button" aria-pressed="false">Short break</button>
+          <button id="mode-long" type="button" aria-pressed="false">Long break</button>
+        </div>
+        <div class="timer-heading"><h1 id="mode-label">Time to focus</h1><span class="state-pill" id="status">Ready</span></div>
+        <div id="timer" class="timer-display" role="timer" aria-label="25 minutes remaining" aria-live="off">25:00</div>
+        <progress id="timer-progress" max="1" value="0" aria-label="Current session progress"></progress>
+        <div class="timer-actions"><button class="primary-button" id="start-pause" type="button">Start focus</button><button class="secondary-button" id="reset" type="button" aria-label="Reset current timer">Reset</button></div>
+        <p class="keyboard-hint"><kbd>Space</kbd> start / pause <span aria-hidden="true">·</span> <kbd>R</kbd> reset</p>
+        <p id="announcement" class="session-announcement" role="status" aria-live="polite" aria-atomic="true">Choose one task. The rest can wait.</p>
+        <div class="session-footer"><div><span class="eyebrow">COMPLETED FOCUS</span><p id="session-count">0 sessions</p></div><div class="cycle-detail"><span class="eyebrow">CURRENT CYCLE</span><p id="cycle-progress">0 / 4 until a long break</p></div></div>
+      </section>
+      <aside class="settings-panel" aria-label="Timer preferences">
+        <div class="aside-heading"><span class="eyebrow">YOUR RHYTHM</span><h2>A little structure.<br>A little breathing room.</h2><p>Four focus sessions, then a longer break. Each next session waits for you.</p></div>
+        <details id="settings" open><summary>Session lengths <span>minutes</span></summary>
+          <form id="duration-form" novalidate>
+            <div class="duration-row"><label for="duration-focus">Focus</label><input id="duration-focus" name="focus" type="number" min="1" max="180" step="1" required value="25" inputmode="numeric" aria-describedby="duration-help settings-message"></div>
+            <div class="duration-row"><label for="duration-short">Short break</label><input id="duration-short" name="short" type="number" min="1" max="180" step="1" required value="5" inputmode="numeric" aria-describedby="duration-help settings-message"></div>
+            <div class="duration-row"><label for="duration-long">Long break</label><input id="duration-long" name="long" type="number" min="1" max="180" step="1" required value="15" inputmode="numeric" aria-describedby="duration-help settings-message"></div>
+            <p class="field-help" id="duration-help">Whole minutes, 1–180. Saving resets the current timer, not your completed sessions.</p>
+            <button class="settings-save" id="save-durations" type="submit">Save lengths</button>
+            <p id="settings-message" role="status" aria-live="polite" class="field-message"></p>
+          </form>
+        </details>
+        <div class="sound-settings"><label class="sound-label" for="sound-toggle"><span>Completion sound<span class="field-help">A gentle chime when time is up.</span></span><input id="sound-toggle" type="checkbox"></label><button class="text-button" id="sound-test" type="button">Preview chime</button><p class="field-help" id="sound-message" role="status" aria-live="polite">Sound is off. No surprises.</p></div>
+        <p id="storage-notice" class="privacy-note" role="status">Saved only in this browser. No accounts, no tracking.</p>
+      </aside>
+    </div>
+    <footer class="page-footer"><span>Focus. Rest. Repeat.</span><span>Make room for good work.</span></footer>
+    <noscript><p class="no-script">This timer needs JavaScript enabled. Your data never leaves this browser.</p></noscript>
+  </main>
+</body>
+</html>

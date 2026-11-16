@@ -1,0 +1,45 @@
+# HTTPS follows the existing Traefik resolver convention in this cluster.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pomodoro
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls.certresolver: myresolver
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: pomodoro.hn.yaaha.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: pomodoro
+                port:
+                  name: http
+  tls:
+    - hosts:
+        - pomodoro.hn.yaaha.net
+---
+# A separate non-TLS router also serves plain HTTP without requiring a CRD.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pomodoro-http
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: pomodoro.hn.yaaha.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: pomodoro
+                port:
+                  name: http

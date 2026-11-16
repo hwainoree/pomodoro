@@ -1,0 +1,10 @@
+node_modules/
+dist/
+rendered.yaml
+qa/*.png
+qa/*results.json
+.env
+.env.*
+*.pem
+*.key
+*.kubeconfig
